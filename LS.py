@@ -1,20 +1,23 @@
-from ast import arg
-import os
+from os import*
 import argparse
 
 
-def LS( arguments):
-    all=False
-    arguments.add_argument("-a", help="do not ignore entries starting with .")
-    arguments.parse_args("all")
+def LS(arguments):
+    directoryList=[]
+    arguments.add_argument("directory", type=str, nargs='?', default='.')
+    arguments.add_argument("--all", "-a", action="store_true",
+                           help="do not ignore entries starting with .")
     args = arguments.parse_args()
-    print(args.all)
-    for iterator in os.listdir():
+    all = True if args.all else False
+    for iterator in scandir(args.directory):
         if all:
-            print (iterator)
-        elif  iterator.startswith('.') == False:
-            print (iterator)
-    
+            directoryList.append(iterator.name)
+        elif str(iterator).startswith('.') == False:
+            directoryList.append(iterator.name)
+    for iterator in directoryList:
+        print(type(iterator))
+        print(iterator)
+            
 
 
 if __name__ == "__main__":
