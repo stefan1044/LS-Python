@@ -1,5 +1,25 @@
-numbers = [34.6, -203.4, 44.9, 68.3, -12.2, 44.6, 12.7]
-newlist = [numbers for nr in numbers if nr>0]
+from ast import arg
+import os
+import argparse
 
-print(newlist)
-x=5
+
+def LS( arguments):
+    all=False
+    arguments.add_argument("-a", help="do not ignore entries starting with .")
+    arguments.parse_args("all")
+    args = arguments.parse_args()
+    print(args.all)
+    for iterator in os.listdir():
+        if all:
+            print (iterator)
+        elif  iterator.startswith('.') == False:
+            print (iterator)
+    
+
+
+if __name__ == "__main__":
+    try:
+        inputString = argparse.ArgumentParser()
+        LS(inputString)
+    except OSError as error:
+        print(error)
